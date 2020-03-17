@@ -96,11 +96,14 @@ def ptr_from_talloc_chunk(tc):
     "Ptr to chunk data"
     return (tc.address + tc.header_size)
 
+tv = gdb.lookup_global_symbol("talloc_lib_init").value().address
+TALLOC_RAND_MAGIC = tv.cast( gdb.lookup_type('unsigned long')) & 0xfffffff0
+print("magic: 0x%lx" % (TALLOC_RAND_MAGIC))
+
 TALLOC_MAGIC_BASE      = 0xe814ec70
 TALLOC_VERSION_MAJOR   = 2
 TALLOC_VERSION_MINOR   = 0
-TALLOC_MAGIC           = TALLOC_MAGIC_BASE + (TALLOC_VERSION_MAJOR << 12) \
-                                           + (TALLOC_VERSION_MINOR << 4)
+TALLOC_MAGIC           = TALLOC_RAND_MAGIC
 
 TALLOC_MAGIC_REFERENCE = 1
 MAX_TALLOC_SIZE        = 0x10000000
