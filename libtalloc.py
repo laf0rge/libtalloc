@@ -768,7 +768,8 @@ class talloc_chunk:
                 read_data = False
 
         if SIZE_SZ == 4:
-            (self.next_tc, \
+            (self.flags, \
+            self.next_tc, \
             self.prev_tc,  \
             self.parent,  \
             self.child,  \
@@ -776,11 +777,11 @@ class talloc_chunk:
             self.destructor,  \
             self.name,  \
             self.size,  \
-            self.flags,  \
             ) = struct.unpack_from("<9I", self.mem, 0x0)
             self.struct_size = 9*4
         elif SIZE_SZ == 8:
-            (self.next_tc, \
+            (self.flags, \
+            self.next_tc, \
             self.prev_tc,  \
             self.parent,  \
             self.child,  \
@@ -788,7 +789,6 @@ class talloc_chunk:
             self.destructor,  \
             self.name,  \
             self.size,  \
-            self.flags,  \
             ) = struct.unpack_from("<8QI", self.mem, 0x0)
             self.struct_size = ((8*8) + 4)
 
