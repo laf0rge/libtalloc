@@ -82,16 +82,10 @@ null_context         = None
 
 TALLOC_ALIGNMENT     = 16
 TALLOC_ALIGN_MASK    = TALLOC_ALIGNMENT - 1
-if SIZE_SZ == 4:
-    TC_SIZE              = SIZE_SZ * 10
-elif SIZE_SZ == 8:
-    TC_SIZE              = SIZE_SZ * 12
+TC_SIZE = gdb.lookup_type('struct talloc_chunk').sizeof
 
 TC_HDR_SIZE          = (TC_SIZE+TALLOC_ALIGN_MASK) & ~TALLOC_ALIGN_MASK
-if SIZE_SZ == 4:
-    TP_SIZE              = SIZE_SZ * 3
-elif SIZE_SZ == 8:
-    TP_SIZE              = SIZE_SZ * 4
+TP_SIZE = gdb.lookup_type('struct talloc_pool_hdr').sizeof
 TP_HDR_SIZE          = (TP_SIZE+TALLOC_ALIGN_MASK) & ~TALLOC_ALIGN_MASK
 
 def talloc_chunk_from_ptr(p):
