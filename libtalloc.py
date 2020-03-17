@@ -174,7 +174,7 @@ def version_cmp(w):
         if talloc_version == None:
             return False
     t = talloc_version
-    for i in xrange(len(t)):
+    for i in range(len(t)):
         if (t[i] != w[i]):
             return t[i] - w[i];
     return 0
